@@ -1,28 +1,37 @@
 package person;
 
-import person.Person;
+import computer.Computer;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Customer extends Person {
-    String workOrder;
-    String problemType;
-    public Customer(String fullname, String emailAdress, String workOrder, String problemType) {
-        super(fullname,emailAdress);
-        setWorkOrder(workOrder);
-        setEmailAddress(emailAdress);
-    }
-    public String getWorkOrder() {
-        return workOrder;
+    private ArrayList<Computer> repair;
+
+    public Customer(String fullname, String emailAddress, ArrayList<Computer> repair) {
+        super(fullname, emailAddress);
+        setRepair(repair);
     }
 
-    public void setWorkOrder(String workOrder) {
-        this.workOrder = workOrder;
+    public ArrayList<Computer> getRepair() {
+        return repair;
     }
 
-    public String getProblemType() {
-        return problemType;
+    public void setRepair(ArrayList<Computer> repair) {
+        this.repair = repair;
     }
 
-    public void setProblemType(String problemType) {
-        this.problemType = problemType;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return repair.equals(customer.repair);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(repair);
     }
 }
+

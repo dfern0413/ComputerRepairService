@@ -11,4 +11,6 @@ public class Speaker extends Computer{
         this.type = type;
         this.componentFault = componentFault;
     }
+
+
 }
