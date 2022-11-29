@@ -1,39 +1,29 @@
 package order;
 
-import date.Date;
 
-public class Order {
+import person.Employee;
+import person.Person;
+
+public class Order implements IProcessOrder {
     int orderNumber;
-    String faultyComponent;
-    String date;
+    String customer;
+    String employee;
+    String part;
+    String brand;
 
-    public Order(int orderNumber, String faultyComponent, String date) {
+    public Order(int orderNumber, String customer, String employee, String part, String brand) {
         this.orderNumber = orderNumber;
-        this.faultyComponent = faultyComponent;
-        this.date = date;
+        this.customer = customer;
+        this.employee = employee;
+        this.part = part;
+        this.brand = brand;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
-    }
 
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 
-    public String getFaultyComponent() {
-        return faultyComponent;
-    }
 
-    public void setFaultyComponent(String faultyComponent) {
-        this.faultyComponent = faultyComponent;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    @Override
+    public String processOrder() {
+        return part;
     }
 }

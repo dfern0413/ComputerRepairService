@@ -1,12 +1,11 @@
 package person;
 
-public class Person {
+public abstract class Person {
     private String fullname;
-    private String emailAddress;
 
-    public Person(String fullname, String emailAddress) {
+    public Person(String fullname) {
         this.fullname = fullname;
-        this.emailAddress = emailAddress;
+
     }
 
     public String getFullname() {
@@ -17,11 +16,4 @@ public class Person {
         this.fullname = fullname;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 }

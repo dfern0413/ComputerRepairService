@@ -1,5 +1,7 @@
-import computer.Computer;
-import computer.Speaker;
+
+import cost.PartsCost;
+import order.IProcessOrder;
+import order.Order;
 import person.Customer;
 import person.Person;
 
@@ -7,23 +9,26 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Computer> repairsList = new ArrayList<Computer>();
-        Computer computer1 = new Speaker(1, "Does not turn on", "Sony", "Wireless", true);
-        repairsList.add(computer1);
+        //Create Order
+        Order order1 = new Order(1, "Mike", "Jeff", "keyboard", "DELL");
+        PartsCost partsCost = new PartsCost();
 
-        printRepairs(repairsList);
+        //Process
+        String brokenPart;
+        brokenPart = order1.processOrder();
+        System.out.println(brokenPart);
+
+        //Calculate Value
+        int cost;
+        cost = partsCost.repairPartCost(brokenPart);
+        System.out.println(cost);
+
 
         // Customers
-        Person person1 = new Customer("Alex John", "lork@gmail.com", repairsList);
-        System.out.println(person1);
+
 
 
     }
 
-    public static void printRepairs(ArrayList<Computer> repairsList) {
 
-        for (int i = 0; i < repairsList.size(); i++) {
-            System.out.println("Computer repair: " + i + repairsList.get(i));
-        }
-    }
 }

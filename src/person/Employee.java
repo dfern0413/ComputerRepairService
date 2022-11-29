@@ -4,8 +4,8 @@ import person.Person;
 
 public class Employee extends Person {
     int taskId;
-    public Employee(String fullname, String emailAdress, int taskId) {
-        super(fullname,emailAdress);
+    public Employee(String fullname, int taskId) {
+        super(fullname);
         setTaskId(taskId);
     }
     public int getTaskId() {
