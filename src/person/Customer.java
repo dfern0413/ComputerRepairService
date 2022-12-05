@@ -12,6 +12,11 @@ public class Customer extends Person {
         this.emailAddress = emailAddress;
     }
 
-
+    @Override
+    public String toString() {
+        return '{' + "name=" + getFullname() +
+                " and emailAddress='" + emailAddress + '\'' +
+                '}';
+    }
 }
 

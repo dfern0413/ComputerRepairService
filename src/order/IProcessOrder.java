@@ -1,5 +1,13 @@
 package order;
 
+import components.Cpu;
+
 public interface IProcessOrder {
-    String processOrder();
+    default String processOrder(Order order) {
+        if (order.component.getName() == "Cpu") {
+            return "Cpu";
+        } else {
+            return null;
+        }
+    }
 }

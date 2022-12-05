@@ -1,36 +1,32 @@
 
-import cost.PartsCost;
+import components.Component;
+import order.Bin;
 import order.IProcessOrder;
 import order.Order;
 import person.Customer;
-import person.Person;
+import person.Employee;
 
-import java.util.ArrayList;
-
-public class Main {
-    public static void main(String[] args) {
+public class Main  {
+    public static void main(String[] args)  {
         //Create Order
-        Order order1 = new Order(1, "Mike", "Jeff", "keyboard", "DELL");
-        Order order2 = new Order(2, "Antonio", "Jeff", "speaker", "Sony");
-        PartsCost partsCost = new PartsCost();
-        System.out.println(order1.toString());
+        Order order1 = new Order(0, new Customer("Juan", "ford@gmail"),
+                    new Employee("Antonio", 1), new Component("Cpu", "Intel", 10223));
+        Order order2 = new Order(1, new Customer("Pepe", "pepe2@yahoo.com"),
+                    new Employee("Mark", 2), new Component("Storage", "Intel", 2988));
 
-        if(order1.equals(order1)){
-            System.out.println("ERROR: Same Order");
-        }
+        //Create a bin to keep order in ArrayList
+        Bin bin = new Bin();
+        //Add to bin
+        bin.AddToBin(order1);
+        bin.AddToBin(order2);
+        bin.showOrderList();
+        bin.RemoveFromBin(order2);
+        bin.showOrderList();
 
-        //Process
-        String brokenPart;
-        brokenPart = order1.processOrder();
-        System.out.println(brokenPart);
+
 
         //Calculate Value
-        int cost;
-        cost = partsCost.repairPartCost(brokenPart);
-        System.out.println(cost);
 
-
-        // Customers
 
 
 

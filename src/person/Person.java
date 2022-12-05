@@ -16,4 +16,10 @@ public abstract class Person {
         this.fullname = fullname;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "fullname='" + fullname + '\'' +
+                '}';
+    }
 }
