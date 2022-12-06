@@ -1,27 +1,57 @@
 
 import components.Component;
-import order.Bin;
-import order.IProcessOrder;
+import components.Cpu;
+import components.Keyboard;
+import exception.InvalidNameException;
+import order.ComputerRepairService;
 import order.Order;
 import person.Customer;
 import person.Employee;
 
-public class Main  {
-    public static void main(String[] args)  {
-        //Create Order
-        Order order1 = new Order(0, new Customer("Juan", "ford@gmail"),
-                    new Employee("Antonio", 1), new Component("Cpu", "Intel", 10223));
-        Order order2 = new Order(1, new Customer("Pepe", "pepe2@yahoo.com"),
-                    new Employee("Mark", 2), new Component("Storage", "Intel", 2988));
+import org.apache.log4j.Logger;
 
-        //Create a bin to keep order in ArrayList
-        Bin bin = new Bin();
-        //Add to bin
-        bin.AddToBin(order1);
-        bin.AddToBin(order2);
-        bin.showOrderList();
-        bin.RemoveFromBin(order2);
-        bin.showOrderList();
+import java.util.ArrayList;
+
+public class Main  {
+    public static void main(String[] args) throws InvalidNameException {
+
+        // ArrayList of Components
+        ArrayList<Component> componentList1 = new ArrayList<Component>();
+        componentList1.add(new Cpu("Cpu", "Intel", 101, 4));
+        componentList1.add(new Keyboard("Keyboard", "Alienware", 202, "BGR"));
+
+        //Create class to contain ArrayList orderList, customerList, employeeList
+        ComputerRepairService computerRepairService = new ComputerRepairService();
+
+        // computerRepairService.AddOrder(order1);
+        // Employees
+        computerRepairService.AddEmployee(new Employee("Mike Jame", 100));
+        computerRepairService.AddEmployee(new Employee("Juan Peepe", 102));
+        // Customers
+        computerRepairService.AddCustomer(new Customer("Louis Parker", "lp02@gmail.com"));
+        computerRepairService.AddCustomer(new Customer("Ming Perez", "mp0405@yahoo.com"));
+
+        //Create Order
+        Order order1 = new Order(0, computerRepairService.RetrieveCustomerFromList(0) ,
+                computerRepairService.RetrieveEmployeeFromList(0), componentList1);
+
+        Order order2 = new Order(1, new Customer("Pepe", "pepe2@yahoo.com"),
+                new Employee("", 2), componentList1);
+
+        //Add orders to Computer Service
+        computerRepairService.AddOrder(order1);
+
+
+
+        // Ask about showOrderList()
+        // Ask about calculating prices, not sure how to determine component parameters in component ArrayList
+
+        computerRepairService.showOrderList();
+
+
+
+
+
 
 
 

@@ -1,6 +1,10 @@
 package cost;
 
+import components.Component;
+
+import java.util.ArrayList;
+
 public interface ICalculateCost {
-    int repairPartCost(String brokenPart);
+    int repairPartCost(ArrayList<Component> componentList);
 
 }

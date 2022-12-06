@@ -1,5 +1,7 @@
 package components;
 
+
+
 public class Storage extends Component{
     int size;
 
@@ -8,5 +10,21 @@ public class Storage extends Component{
         this.size = size;
     }
 
+    public int getSize() {
+        return size;
+    }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "size=" + size +
+                ", name='" + name + '\'' +
+                ", model='" + model + '\'' +
+                ", issue=" + issue +
+                '}';
+    }
 }
