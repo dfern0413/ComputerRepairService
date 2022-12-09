@@ -2,6 +2,7 @@ package components;
 
 public class Motherboard extends Component{
     int ramSlots;
+    final int motherboardCost = 270;
 
     public Motherboard(String name, String model, int issue, int ramSlots) {
         super(name, model, issue);
@@ -16,6 +17,9 @@ public class Motherboard extends Component{
         this.ramSlots = ramSlots;
     }
 
+    public int getMotherboardCost() {
+        return motherboardCost;
+    }
     @Override
     public String toString() {
         return "Motherboard{" +

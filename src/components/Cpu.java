@@ -2,6 +2,7 @@ package components;
 
 public class Cpu extends Component{
     int cores;
+    final int cpuCost = 250;
 
     public Cpu(String name, String model, int issue, int cores) {
         super(name, model, issue);
@@ -15,6 +16,11 @@ public class Cpu extends Component{
     public void setCores(int cores) {
         this.cores = cores;
     }
+
+    public int getCpuCost() {
+        return cpuCost;
+    }
+
 
     @Override
     public String toString() {

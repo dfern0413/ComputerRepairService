@@ -4,6 +4,7 @@ package components;
 
 public class Storage extends Component{
     int size;
+    final int storageCost = 90;
 
     public Storage(String name, String model, int issue, int size) {
         super(name, model, issue);
@@ -18,6 +19,9 @@ public class Storage extends Component{
         this.size = size;
     }
 
+    public int getStorageCost() {
+        return storageCost;
+    }
     @Override
     public String toString() {
         return "Storage{" +

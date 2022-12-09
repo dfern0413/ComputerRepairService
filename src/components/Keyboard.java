@@ -2,6 +2,7 @@ package components;
 
 public class Keyboard extends Component{
     String ledColor;
+    final int keyboardCost = 45;
 
     public Keyboard(String name, String model, int issue, String ledColor) {
         super(name, model, issue);
@@ -16,6 +17,11 @@ public class Keyboard extends Component{
         this.ledColor = ledColor;
     }
 
+    public int getKeyboardCost() {
+        return keyboardCost;
+    }
+
+
     @Override
     public String toString() {
         return "Keyboard{" +
@@ -25,4 +31,5 @@ public class Keyboard extends Component{
                 ", issue=" + issue +
                 '}';
     }
+
 }

@@ -1,6 +1,6 @@
 package components;
 
-public class Component {
+public abstract class Component {
     String name;
     String model;
     int issue;
@@ -43,4 +43,5 @@ public class Component {
                 ", issue=" + issue +
                 '}';
     }
+
 }
