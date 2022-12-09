@@ -2,6 +2,7 @@ package order;
 
 
 import components.*;
+import exception.InvalidOrderNumberException;
 import org.apache.log4j.Logger;
 import person.Customer;
 import person.Employee;
@@ -23,14 +24,10 @@ public class Order {
         this.customer = customer;
         this.employee = employee;
         this.componentList = componentList;
-
-//        if (employee.getFullname().equals("")) {
-//            throw new InvalidNameException("Invalid Name");
-//        }
-////        }catch (Exception e){
-
-       // }
         }
+    public ArrayList<Component> getComponentList(){
+        return componentList;
+    }
 
     @Override
     public String toString() {
@@ -40,5 +37,11 @@ public class Order {
                 ", employee=" + employee +
                 ", component=" + component +
                 '}';
+    }
+
+    public static void validateOrderNumber(int orderNumber) throws InvalidOrderNumberException {
+        if (orderNumber<0){
+            throw new InvalidOrderNumberException("Order Number cannot be negative");
+        }
     }
 }

@@ -1,8 +1,10 @@
 
 import components.*;
+import exception.InvalidComponentException;
+import exception.InvalidEmailException;
 import exception.InvalidNameException;
 import order.ComputerRepairService;
-import order.IAddService;
+
 import order.Order;
 import person.Customer;
 import person.Employee;
@@ -13,10 +15,10 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class Main  {
+    private static final Logger LOGGER = Logger.getLogger("Computer Repair Service Log");
 
 
-    public static void main(String[] args) throws InvalidNameException {
-        ComputerRepairService computerRepairService = new ComputerRepairService();
+    public static void main(String[] args) throws InvalidNameException, InvalidEmailException, InvalidComponentException {
         printOptions();
         Scanner scanner = new Scanner(System.in);
         String option;
@@ -27,17 +29,17 @@ public class Main  {
     }
 
         private static void printOptions(){
-            System.out.println("Please choose one of the following options");
-            System.out.println("1 - For customer");
-            System.out.println("2 - For employee");
-            System.out.println("0 - To exit");
+            LOGGER.info("Please choose one of the following options");
+            LOGGER.info("1 - For customer");
+            LOGGER.info("2 - For employee");
+            LOGGER.info("0 - To exit");
         }
 
-        private static void makeAChoice(String choice){
+        private static void makeAChoice(String choice) throws InvalidNameException, InvalidEmailException, InvalidComponentException {
             Scanner scanner = new Scanner(System.in);
             switch (choice) {
                 case "0":
-                    System.out.println("Have a nice day");
+                    LOGGER.info("Have a nice day");
                     break;
                 case "1":
                     printCustomerOptions();
@@ -58,24 +60,25 @@ public class Main  {
         }
 
         private static void printCustomerOptions() {
-            System.out.println("1 - Make an order");
-            System.out.println("4 - To main page");
+            LOGGER.info("1 - Make an order");
+            LOGGER.info("2 - Check order balance");
+            LOGGER.info("9 - To main page");
         }
 
-        private static void makeCustomerChoice(String option) {
+        private static void makeCustomerChoice(String option) throws InvalidNameException, InvalidEmailException, InvalidComponentException {
             Scanner scanner = new Scanner(System.in);
             switch (option) {
                 case "1":
-                    System.out.println("Please insert your name");
+                    LOGGER.info("Please insert your name");
                     String customerName = scanner.nextLine();
 
-                    System.out.println("Please insert your email");
+                    LOGGER.info("Please insert your email");
                     String customerEmail = scanner.nextLine();
 
                     //Make customer class
                     Customer customerCreated = new Customer(customerName,customerEmail);
 
-                    System.out.println("Please select an employee and their Id from the list");
+                    LOGGER.info("Please select an employee and their Id from the list");
                     ComputerRepairService.showEmployeeList();
                     String employeeName = scanner.nextLine();
                     int employeeId = Integer.parseInt(scanner.nextLine());
@@ -83,67 +86,83 @@ public class Main  {
                     Employee employeeAssigned = new Employee(employeeName, employeeId);
 
                     // Add an option to pick how many components and then for loop
-                    System.out.println("How many components are you looking to repair?");
+                    LOGGER.info("How many components are you looking to repair?");
                     int componentAmount = Integer.parseInt(scanner.nextLine());
                     // Make List for components
                     ArrayList<Component> componentList = new ArrayList<>();
 
                     for(int i = 0; i < componentAmount; i++) {
 
-                        System.out.println("Name of component that needs repair");
+                        LOGGER.info("Name of component that needs repair");
                         String componentName = scanner.nextLine();
-                        System.out.println("Model of component that needs repair");
+                        LOGGER.info("Model of component that needs repair");
                         String componentModel = scanner.nextLine();
-                        System.out.println("Issue of component that needs repair");
+                        LOGGER.info("Issue of component that needs repair");
                         int componentIssue = Integer.parseInt(scanner.nextLine());
 
 
-                        if (componentName.equals("Cpu")) {
-                            System.out.println("Amount of cores");
-                            int coresNumber = Integer.parseInt(scanner.nextLine());
-                            Cpu cpuMade = new Cpu(componentName, componentModel, componentIssue, coresNumber);
-                            componentList.add(i, cpuMade);
+                        switch (componentName) {
+                            case "Cpu":
+                                LOGGER.info("Amount of cores");
+                                int coresNumber = Integer.parseInt(scanner.nextLine());
+                                Cpu cpuMade = new Cpu(componentName, componentModel, componentIssue, coresNumber);
+                                componentList.add(i, cpuMade);
 
 
-                        } else if (componentName.equals("Keyboard")) {
-                            System.out.println("Select LED color");
-                            String ledColor = scanner.nextLine();
-                            Keyboard keyboardMade = new Keyboard(componentName, componentModel, componentIssue, ledColor);
-                            componentList.add(i, keyboardMade);
+                                break;
+                            case "Keyboard":
+                                LOGGER.info("Select LED color");
+                                String ledColor = scanner.nextLine();
+                                Keyboard keyboardMade = new Keyboard(componentName, componentModel, componentIssue, ledColor);
+                                componentList.add(i, keyboardMade);
 
-                        } else if (componentName.equals("Motherboard")) {
-                            System.out.println("Ram slots");
-                            int ramSlots = Integer.parseInt(scanner.nextLine());
-                            Motherboard motherboardMade = new Motherboard(componentName, componentModel, componentIssue, ramSlots);
-                            componentList.add(i, motherboardMade);
+                                break;
+                            case "Motherboard":
+                                LOGGER.info("Ram slots");
+                                int ramSlots = Integer.parseInt(scanner.nextLine());
+                                Motherboard motherboardMade = new Motherboard(componentName, componentModel, componentIssue, ramSlots);
+                                componentList.add(i, motherboardMade);
 
-                        } else if (componentName.equals("Ram")) {
-                            System.out.println("Amount of ram");
-                            int ramAmount = Integer.parseInt(scanner.nextLine());
-                            Ram ramMade = new Ram(componentName, componentModel, componentIssue, ramAmount);
-                            componentList.add(i, ramMade);
+                                break;
+                            case "Ram":
+                                LOGGER.info("Amount of ram");
+                                int ramAmount = Integer.parseInt(scanner.nextLine());
+                                Ram ramMade = new Ram(componentName, componentModel, componentIssue, ramAmount);
+                                componentList.add(i, ramMade);
 
-                        } else if (componentName.equals("Storage")) {
-                            System.out.println("Amount of storage");
-                            int storageSize = Integer.parseInt(scanner.nextLine());
-                            Storage storageMade = new Storage(componentName, componentModel, componentIssue, storageSize);
-                            componentList.add(i, storageMade);
+                                break;
+                            case "Storage":
+                                LOGGER.info("Amount of storage");
+                                int storageSize = Integer.parseInt(scanner.nextLine());
+                                Storage storageMade = new Storage(componentName, componentModel, componentIssue, storageSize);
+                                componentList.add(i, storageMade);
 
-                        } else {
-                            System.out.println("Incorrect component name");
-                            break;
+                                break;
+                            default:
+                                throw new InvalidComponentException("Invalid component name given");
                         }
+
                     }
 
                     // Add a list for order number to be able to save ordernumber and access your order later
                     Order orderCreated = new Order(ComputerRepairService.getOrderAmount(), customerCreated, employeeAssigned, componentList);
                     ComputerRepairService.addOrder(orderCreated);
-                    System.out.println("Order was created, your order number is: " + ComputerRepairService.getOrderAmount());
+                    LOGGER.info("Order was created, your order number is: " + ComputerRepairService.getOrderAmount());
                     ComputerRepairService.increaseOrderAmount();
 
                     break;
+                case "2":
+                    LOGGER.info("Insert your Order Number");
+                    int orderNumber = Integer.parseInt(scanner.nextLine());
+                    Order order = ComputerRepairService.getOrder(orderNumber);
 
-                case "4":
+                    ArrayList<Component> componentListInOrder = order.getComponentList();
+                    int totalCost = ComputerRepairService.repairPartCost(componentListInOrder);
+                    LOGGER.info(totalCost);
+
+                    break;
+
+                case "9":
                     printOptions();
                     do {
                         option = scanner.next();
@@ -154,19 +173,20 @@ public class Main  {
         }
 
     private static void printEmployeeOptions() {
-        System.out.println("1 - Add to employee list");
-        System.out.println("2 - Remove order");
-        System.out.println("3 - Show list of orders");
-        System.out.println("0 - To main page");
+        LOGGER.info("1 - Add to employee list");
+        LOGGER.info("2 - Remove order");
+        LOGGER.info("3 - Show list of orders");
+        LOGGER.info("9 - To main page");
     }
 
-    private static void makeEmployeeChoice(String option) {
+    private static void makeEmployeeChoice(String option) throws InvalidNameException, InvalidEmailException, InvalidComponentException {
         Scanner scanner = new Scanner(System.in);
         switch (option) {
             case "1":
-                System.out.println("Name of employee");
+                LOGGER.info("Name of employee");
+
                 String employeeName = scanner.nextLine();
-                System.out.println("Id of employee");
+                LOGGER.info("Id of employee");
                 int employeeId = Integer.parseInt(scanner.nextLine());
 
                 Employee employeeCreated = new Employee(employeeName, employeeId);
@@ -174,14 +194,14 @@ public class Main  {
 
                 break;
             case "2":
-                System.out.println("Insert Order Number");
+                LOGGER.info("Insert Order Number");
                 int orderNumber = Integer.parseInt(scanner.nextLine());
 
                 ComputerRepairService.removeFromOrderList(orderNumber);
                 break;
             case "3":
                 ComputerRepairService.showOrderList();
-            case "0":
+            case "9":
                 printOptions();
                 do {
                     option = scanner.next();
@@ -192,8 +212,8 @@ public class Main  {
     }
 
     public static void continueOperation() {
-        System.out.println("Click 1 to go main page");
-        System.out.println("Click 0 to exit     ");
+        LOGGER.info("Click 1 to go main page");
+        LOGGER.info("Click 0 to exit     ");
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch (option) {
@@ -201,10 +221,10 @@ public class Main  {
                 printOptions();
                 break;
             case "0":
-                System.out.println("Have a nice day");
+                LOGGER.info("Have a nice day");
                 break;
             default:
-                System.out.println("Please chose an option");
+                LOGGER.info("Please chose an option");
                 continueOperation();
                 break;
         }

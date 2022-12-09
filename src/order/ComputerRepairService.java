@@ -12,6 +12,7 @@ public class ComputerRepairService implements IRemoveFromService, IRetrieveFromL
     static List<Order> orderList = new ArrayList<>();
     static List<Customer> customerList = new ArrayList<>();
     static List<Employee> employeeList = new ArrayList<>();
+    static List<Component> componentList = new ArrayList<>();
     static int orderAmount = 0;
     private static final Logger LOGGER = Logger.getLogger("Computer Repair Service Log");
 
@@ -22,6 +23,7 @@ public class ComputerRepairService implements IRemoveFromService, IRetrieveFromL
     public static void increaseOrderAmount(){ orderAmount += 1; }
     public static void addCustomer(Customer customer) { customerList.add(customer); }
     public static void addEmployee(Employee employee) { employeeList.add(employee); }
+
     // Show Lists
     public static void showOrderList() {
         System.out.println("Order List: ");
@@ -46,29 +48,9 @@ public class ComputerRepairService implements IRemoveFromService, IRetrieveFromL
     public void RemoveFromCustomerList(Customer customer) { customerList.remove(customer); }
     @Override
     public void RemoveFromEmployeeList(Employee employee) { employeeList.remove(employee); }
-    // Getter and Setters:
-    public static List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public static void setOrderList(List<Order> orderList) {
-        ComputerRepairService.orderList = orderList;
-    }
-
-    public static List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public static void setCustomerList(List<Customer> customerList) {
-        ComputerRepairService.customerList = customerList;
-    }
-
-    public static List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public static void setEmployeeList(List<Employee> employeeList) {
-        ComputerRepairService.employeeList = employeeList;
+//
+    public static Order getOrder(int orderNumber){
+        return orderList.get(orderNumber);
     }
 
     @Override
